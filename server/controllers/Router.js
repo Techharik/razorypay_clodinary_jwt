@@ -10,7 +10,7 @@ import Razorpay from 'razorpay';
 cloudinary.config({ 
   cloud_name: 'dhvfoxf4a', 
   api_key: '476319513618693', 
-  api_secret: 'nRBgO4wKr91X0oc9sQuHbD0snTg' 
+  api_secret: '.........' 
 });
 
 router.get('/register',(req,res)=>{
@@ -92,19 +92,23 @@ router.post('/dashboard', async (req,res)=>{
 })
 
 router.get('/pay',(req,res)=>{
+    res.render('pay')
+})
 
+router.post('/pay',async (req,res)=>{
+ const amount = req.body.amount
 
-const instance = new Razorpay({ key_id: 'YOUR_KEY_ID', key_secret: 'YOUR_SECRET' })
+const instance = new Razorpay({ key_id: 'rzp_test_BLCxTdA1kFfVY8', key_secret: '...................' })
 
-instance.orders.create({
-  amount: 50000,
+const myOrders = await instance.orders.create({
+  amount: amount *100,
   currency: "INR",
   receipt: "receipt#1",
-  notes: {
-    key1: "value3",
-    key2: "value2"
-  }
+ 
 })
+
+res.status(200).json(myOrders)
+
 })
 
 
