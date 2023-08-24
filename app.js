@@ -2,6 +2,7 @@ import express from 'express';
 import db from './server/db/config.js';
 import router from './server/controllers/Router.js'
 import cookieParser from 'cookie-parser';
+import  fileUpload from 'express-fileupload';
 
 const app = express();
 
@@ -11,7 +12,10 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser())
 
-
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : "/tmp/"
+}));
 
 
 db()
